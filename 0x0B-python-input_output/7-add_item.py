@@ -15,4 +15,4 @@ try:
 except:
     content = []
 
-save_to_json_file(content + argv[1:], filename)
+save_from_json(content + argv[1:], filename)
