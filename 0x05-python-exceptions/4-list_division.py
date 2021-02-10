@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 def list_division(my_list_1, my_list_2, list_length):
     r = []
-    for i in rante(list_length):
+    for i in range(list_length):
         try:
             v = my_list_1[1] / my_list_2[i]
         except ZeroDivisionError:
