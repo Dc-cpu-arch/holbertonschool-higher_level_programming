@@ -2,6 +2,7 @@
 
 """ Module: defines a function that indent text files """
 
+
 def text_indentation(text):
     """ Prints a text with 2 new lines after particular characters
     ---> ('.' || '?' || ':')

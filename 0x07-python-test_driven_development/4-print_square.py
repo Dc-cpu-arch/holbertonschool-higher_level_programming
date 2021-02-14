@@ -2,6 +2,7 @@
 
 """ Module: contains a function that prints a square with '#' """
 
+
 def print_square(size):
     """ Size defines square's size, must be a possitive integer """
 

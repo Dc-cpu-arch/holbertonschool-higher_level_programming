@@ -2,6 +2,7 @@
 
 """ Module: contains a function that adds two integers """
 
+
 def add_integer(a, b=98):
     """ a = first number
         b = second number (default 98)
