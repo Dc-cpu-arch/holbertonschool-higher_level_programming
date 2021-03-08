@@ -1,161 +1,170 @@
 #!/usr/bin/python3
-"""Subclass type Rectangle from Base"""
-
+"""Defines a rectangle module (modules.rectangle)"""
 from models.base import Base
 
 
 class Rectangle(Base):
-    """Instantiation of a Rectangle Object from Base Parent"""
+    """Defines a rectangle class"""
 
     def __init__(self, width, height, x=0, y=0, id=None):
-        """Construction of the Object with its Private Attributes
-
+        """Method that init values for a rectangle object
         Args:
-        width (int): Rectangle width
-        height (int): Rectangle height
-        x (int, optional): X dimension of Rectangle (default is 0)
-        y (int, optional): Y dimension of Rectangle (default is 0)
-        id (int, optional): Rectangle id (default is None)
+           width:size of the width
+           height: size of the height
+           x: Variable x
+           y:  Variable y
+        Return:
+           Always nothing
         """
-
         self.width = width
         self.height = height
         self.x = x
         self.y = y
         super().__init__(id)
 
-        """Get & Set decorators to filter Types and Values of attributes"""
-
+    # Getter and setter of width
     @property
     def width(self):
-        """Gets the Private Attribute of Rectangle"""
+        """Getter the size of width
+        """
         return self.__width
-
-    @property
-    def height(self):
-        """Gets the Private Attribute of Rectangle"""
-        return self.__height
-
-    @property
-    def x(self):
-        """Gets the Private Attribute of Rectangle"""
-        return self.__x
-
-    @property
-    def y(self):
-        """Gets the Private Attribute of Rectangle"""
-        return self.__y
 
     @width.setter
     def width(self, value):
-        """Assigns value to attribute
-
-        Raises:
-        TypeError: if value is not integer
-        ValueError: if value is <= 0
+        """Setter the size of width
+        Args:
+           value: Size to assign to the width
+        Return:
+           Always Nothing
         """
         if type(value) is not int:
             raise TypeError("width must be an integer")
-        if value <= 0:
+        elif value <= 0:
             raise ValueError("width must be > 0")
-        self.__width = value
+        else:
+            self.__width = value
+
+    # Getter and setter of height
+    @property
+    def height(self):
+        """Getter the size of height
+        """
+        return self.__height
 
     @height.setter
     def height(self, value):
-        """Assigns value to attribute
-
-        Raises:
-        TypeError: if value is not integer
-        ValueError: if value is <= 0
+        """Setter the size of height
+        Args:
+           value: Size to assign to the height
+        Return:
+           Always Nothing
         """
         if type(value) is not int:
             raise TypeError("height must be an integer")
-        if value <= 0:
+        elif value <= 0:
             raise ValueError("height must be > 0")
-        self.__height = value
+        else:
+            self.__height = value
+
+    # Getter and setter for x variable
+    @property
+    def x(self):
+        """Getter of x variable
+        """
+        return self.__x
 
     @x.setter
     def x(self, value):
-        """Assigns value to attribute
-
-        Raises:
-        TypeError: if value is not integer
-        ValueError: if vale is < 0
+        """Setter of x variable
+        Args:
+           value: value to assign to x variable
+        Return:
+           Always Nothing
         """
         if type(value) is not int:
             raise TypeError("x must be an integer")
-        if value < 0:
+        elif value < 0:
             raise ValueError("x must be >= 0")
-        self.__x = value
+        else:
+            self.__x = value
+
+    # Getter and setter for y variable
+    @property
+    def y(self):
+        """Getter of y variable
+        """
+        return self.__y
 
     @y.setter
     def y(self, value):
-        """Assigns value to attribute
-
-        Raises:
-        TypeError: if value is not integer
-        ValueError: if value is < 0
+        """Setter of y variable
+        Args:
+           value: value to assign to y variable
+        Return:
+           Always Nothing
         """
         if type(value) is not int:
             raise TypeError("y must be an integer")
-        if value < 0:
+        elif value < 0:
             raise ValueError("y must be >= 0")
-        self.__y = value
-
-    """Displayment of attributes of Rectangle"""
+        else:
+            self.__y = value
 
     def area(self):
-        """Rectangle method to calculate its area"""
-        return self.__width * self__height
+        """Method that returns the area of the rectangle object
+        Args:
+           Not arguments
+        Return:
+           Area of the rectangle object
+        """
+        return self.width * self.height
 
     def display(self):
-        """Prints the object with the '#' character in STDOUT"""
-        print("\n" * self.__y +
-              "\n".join(" " * self.__x + "#" * self.__width
-                        for i in range(self.__height)))
+        """Method that prints to stdout
+           Rectangle object with the character #
+        """
+        for i in range(self.y):
+            print()
+        for i in range(self.height):
+            print(" " * self.x + self.width * '#')
 
     def __str__(self):
-        """Returns the basic attributes from Rectangle"""
-        return ("[{:s}] ({:d}) {:d}/{:d} - {:d}/{:d}".format(
-            self.__class__.__name__, self.id, self.__x, self.__y,
-            self.__width, self.__height)
-
-    def to_dictionary(self):
-        """Returns Rectangle's attributes in dictionary form"""
-        d={}
-        d["id"]=self.id
-        d["width"]=self.width
-        d["height"]=self.height
-        d["x"]=self.x
-        d["y"]=self.y
-        return d
-
-    """Object Attributes Update Modes"""
+        """Method that override str method
+        """
+        return ("[Rectangle] ({}) {}/{} - {}/{}".format(self.id, self.x,
+                                                        self.y, self.width,
+                                                        self.height))
 
     def update(self, *args, **kwargs):
-        """Updates the values of Rectangle's attributes wheter
-        in the key-worded or in the no key-worded argument form
+        """Method that changed the order of arguments for rectangle object
+        Args:
+           *args: list of arguments
+           **kwargs: Dictionary with arguments
+        Return:
+           Always nothing
         """
-        if args:
-            for key, value in enumerate(args):
-                if key == 0:
-                    self.id=value
-                elif key == 1:
-                    self.width=value
-                elif key == 2:
-                    self.height=value
-                elif key == 3:
-                    self.x=value
-                else:
-                    self.y=value
+        dict_order = ['id', 'width', 'height', 'x', 'y']
+        if args is not None and bool(args) is True:
+            i = 0
+            for key in dict_order:
+                try:
+                    setattr(self, key, args[i])
+                except IndexError:
+                    pass
+                i += 1
         else:
-            if "id" in kwargs:
-                self.id=kwargs["id"]
-            if "width" in kwargs:
-                self.width=kwargs["width"]
-            if "height" in kwargs:
-                self.height=kwargs["height"]
-            if "x" in kwargs:
-                self.x=kwargs["x"]
-            if "y" in kwargs:
-                self.y=kwargs["y"]
+            for key in dict_order:
+                try:
+                    setattr(self, key, kwargs[key])
+                except KeyError:
+                    pass
+
+    def to_dictionary(self):
+        """Method that returns a dictionary with
+           attributes of the object.
+        """
+        dict_order = ['x', 'y', 'id', 'height', 'width']
+        dict_attrs = {}
+        for key in dict_order:
+            dict_attrs[key] = getattr(self, key)
+        return dict_attrs

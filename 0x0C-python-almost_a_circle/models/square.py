@@ -1,73 +1,74 @@
 #!/usr/bin/python3
-"""Subclass type Square from Rectangle"""
-
+"""Module that defines a square object"""
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
-    """Instantiation of a Square that inherits from a Rectangle Object"""
+    """Defines a square class"""
 
     def __init__(self, size, x=0, y=0, id=None):
-        """Construction of the Object with its Private Attributes
-
-        Args(from Rectangle):
-        size (int): both width and height of Square
-        x (int): X dimension of Square
-        y (int): Y dimension of Square
+        """Method that initialized the square
+        Args:
+           size: side's size of the square
+           x: Position on x axis.
+           y: Position on y axis.
+        Return:
+           Always nothing.
         """
-    super().__init__(size, size, x, y, id)
+        super().__init__(size, size, x, y, id)
 
-    """Get & Set decorators to set the size values to Square"""
+    def __str__(self):
+        """Method that returns a string"""
+        return ("[Square] ({}) {}/{} - {}".format(self.id, self.x, self.y,
+                                                  self.width))
 
     @property
     def size(self):
-        """Gets the Size Attribute of Square"""
+        """Getter the size of the square
+        """
         return self.width
 
     @size.setter
     def size(self, value):
-        """Sets the Size to width and height of Square"""
+        """Setter the size of the square
+        Args:
+           value: Size to assign
+        Return:
+           Always Nothing
+        """
         self.width = value
-        self.height = value
-
-    """Displayment of basic information about Square"""
-
-    def __str__(self):
-        """Returns the basic information about Square's attributes"""
-        return "[{:s}] ({:d}) {:d}/{:d} - {:d}".format(
-            self.__class__.__name__, self.id, self.__x, self.__y,
-            self.width)
-
-    def to_dictionary(self):
-        """Returns Square's attributes in dictionary form"""
-        d = {}
-        d["id"] = self.id
-        d["size"] = self.size
-        d["x"] = self.x
-        d["y"] = self.y
-        return d
-
-    """Object Attributes Update Modes"""
+        self.heigth = value
 
     def update(self, *args, **kwargs):
-        """Updates the Squares' attributes wheter in the key-worded
-            or in the no key-worded argument form"""
-        if len(args):
-            for key, value in enumerate(args):
-                if key == 0:
-                    self.id = value
-                if key == 1:
-                    self.size = value
-                if key == 2:
-                    self.x = value
-                else:
-                    self.y = value
+        """Method that update arguments for square object
+        Args:
+           *args: list of arguments.
+           **kwargs: Dictionary of the arguments.
+        Return:
+           Always nothing
+        """
+        dict_order = ['id', 'size', 'x', 'y']
+        if args is not None and bool(args) is True:
+            i = 0
+            for key in dict_order:
+                try:
+                    setattr(self, key, args[i])
+                except IndexError:
+                    pass
+                i += 1
         else:
-            if "id" in kwargs:
-                self.id = kwargs["id"]
-            if "size" in kwargs:
-                self.size = kwargs["size"]
-            if "x" in kwargs:
-                self.x = kwargs["x"]
-            if "y" in kwargs:
-                self.y = kwargs["y"]
+            for key in dict_order:
+                try:
+                    setattr(self, key, kwargs[key])
+                except KeyError:
+                    pass
+
+    def to_dictionary(self):
+        """Method that returns the dictionary
+           representation of a Square.
+        """
+        dict_order = ['id', 'x', 'size', 'y']
+        dict_attrs = {}
+        for key in dict_order:
+            dict_attrs[key] = getattr(self, key)
+        return dict_attrs
