@@ -50,7 +50,7 @@ class Rectangle:
         if self.width == 0 or self.height == 0:
             return str_rep
         for i in range(self.height):
-            str_rep += str(self.print_symbol * self.width)
+            str_rep += str(self.print_symbol) * self.width
             if i < self.height - 1:
                 str_rep += '\n'
         return str_rep
@@ -60,4 +60,4 @@ class Rectangle:
 
     def __del__(self):
         Rectangle.number_of_instances -= 1
-        print('Bye rectangle...')
+i       print("Bye rectangle...")
