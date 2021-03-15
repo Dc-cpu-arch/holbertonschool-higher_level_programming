@@ -46,12 +46,16 @@ class Rectangle:
         return 2 * (self.__width + self.__height)
 
     def __str__(self):
-        if self.width == 0 or self.height == 0:
+        symbol = "{}".format(self.print_symbol)
+        if self.area() == 0:
             return ""
-        else:
-            hash_line = str(self.print_symbol) * self.width
-            rectangle = (hash_line + '\n') * (self.height - 1) + hash_line
-        return rectangle
+        print = ""
+        for i in range(self.height):
+            for j in range(self.width):
+                print = print + "{}".format(symbol)
+            if i < self.height - 1:
+                print = print + "\n"
+        return print
 
     def __repr__(self):
         return 'Rectangle({}, {})'.format(self.width, self.height)
